@@ -11,3 +11,7 @@ To automate this *Purge Everything* task, you'll need:
   * Cloudflare > Home
 
 This task is the same as logging into Cloudflare and using the Caching > Purge Cache > Purge Everything function.
+
+## Contribute
+
+This extension is open source.  Please contribute at <https://github.com/staff0rd/tfx-cloudflare-purge>.
