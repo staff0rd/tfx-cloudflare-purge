@@ -1,0 +1,43 @@
+{
+    "manifestVersion": 1,
+    "id": "tfx-cloudflare-purge",
+    "name": "Purge Cache for Cloudflare",
+    "version": "1.0.1",
+    "publisher": "staff0rd",
+    "public": true,
+    "tags": "cdn, purge, cloudflare",
+    "targets": [
+        {
+            "id": "Microsoft.VisualStudio.Services"
+        }
+    ],    
+    "description": "Purges a Cloudflare cache",
+    "categories": [
+        "Azure Pipelines"
+    ],
+    "icons": {
+        "default": "images/extension-icon.png"        
+    },
+    "content": {
+        "details": {
+            "path": "README.md"
+        } 
+    },
+    "files": [
+        {
+            "path": "cloudflarePurge"
+        }
+    ],
+    "contributions": [
+        {
+            "id": "custom-build-release-task",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "cloudflarePurge"
+            }
+        }
+    ]
+}
