@@ -6,7 +6,7 @@ variables:
 - name: version
   value: $(Build.BuildNumber)
 - name: major-minor
-  value: 1.0
+  value: 1.1
 
 name: $(major-minor)$(Rev:.r)
 
@@ -26,9 +26,7 @@ steps:
     targetFiles: manifest-dev.json
 
 - script: |
-    echo build $(version)
-    cat manifest-dev.json
-    # npm install
-    # npx tfx-cli extension publish --manifest-globs manifest-dev.json --share-with staff0rd --token $(visualstudio-marketplace-pat)
+    npm install
+    npx tfx-cli extension publish --manifest-globs manifest-dev.json --share-with staff0rd --token $(visualstudio-marketplace-pat)
 
   displayName: 'npm install and publish to dev'
