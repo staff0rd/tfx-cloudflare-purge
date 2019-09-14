@@ -15,13 +15,15 @@ steps:
   inputs:
     versionSpec: '10.x'
   displayName: 'Install Node.js'
-  
+
 - task: FileTransform@1
   inputs:
     folderPath: $(System.DefaultWorkingDirectory)
     targetFiles: manifest-dev.json
 
 - script: |
+    echo build $(version)
+    cat manifest-dev.json
     npm install
     npx tfx-cli extension publish --manifest-globs manifest-dev.json --share-with staff0rd --token $(visualstudio-marketplace-pat)
 
