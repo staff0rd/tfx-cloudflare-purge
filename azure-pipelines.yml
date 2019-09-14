@@ -3,6 +3,9 @@ trigger:
 
 variables:
 - group: my-variables
+- name: version
+  value: 1.0.$(Build.BuildId)
+
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -12,6 +15,11 @@ steps:
   inputs:
     versionSpec: '10.x'
   displayName: 'Install Node.js'
+  
+- task: FileTransform@1
+  inputs:
+    folderPath: $(System.DefaultWorkingDirectory)
+    targetFiles: manifest-dev.json
 
 - script: |
     npm install
