@@ -6,7 +6,7 @@ name: $(SourceBranchName)-$(Rev:r)
 variables:
 - group: my-variables
 - name: version
-  value: 1.0$(Rev:.r)
+  value: 1.0.$(Rev:r)
 
 pool:
   vmImage: 'ubuntu-latest'
