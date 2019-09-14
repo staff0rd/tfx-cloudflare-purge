@@ -1,0 +1,17 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '10.x'
+  displayName: 'Install Node.js'
+
+- script: |
+    npm install
+    npx tfx-cli extension publish --manifest-globs manifest-dev.json --share-with staff0rd --token $(visualstudio-marketplace-pat)
+
+  displayName: 'npm install and publish to dev'
