@@ -8,15 +8,15 @@ async function run() {
         const apiKey: string = task.getInput('apikey', true);
         const files: string[] = task.getDelimitedInput('files', '\n');
 
-        console.log("I am running!");
-        console.log("I am warning!");
-        console.error("I am erroring!");
+        task.logIssue(task.IssueType.Warning, "I am a warning!");
 
         const headers = {
             "X-Auth-Email": userName,
             "X-Auth-Key": apiKey,
             "Content-Type": "application/json"
         };
+
+        task.logIssue(task.IssueType.Warning, `headers: ${headers}`);
 
         request({url: `https://api.cloudflare.com/client/v4/zones?name=${zoneName}&status=active`, headers: headers}, (error, response, body) => {
             if (error)
