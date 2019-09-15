@@ -8,22 +8,24 @@ async function run() {
         const apiKey: string = task.getInput('apikey', true);
         const files: string[] = task.getDelimitedInput('files', '\n');
 
-        task.logIssue(task.IssueType.Warning, "I am a warning!");
-
+        
         const headers = {
             "X-Auth-Email": userName,
             "X-Auth-Key": apiKey,
             "Content-Type": "application/json"
         };
-
+        
+        task.logIssue(task.IssueType.Warning, "I am a warning!");
         console.log("##vso[task.logissue type=warning]another attempt to warn");
-
         task.logIssue(task.IssueType.Warning, `headers: ${headers}`);
 
         request({url: `https://api.cloudflare.com/client/v4/zones?name=${zoneName}&status=active`, headers: headers}, (error, response, body) => {
             if (error)
                 task.setResult(task.TaskResult.Failed, error);
             else {
+                task.logIssue(task.IssueType.Warning, "Inside: I am a warning!");
+                console.log("##vso[task.logissue type=warning]Inside: another attempt to warn");
+                task.logIssue(task.IssueType.Warning, `inside: headers: ${headers}`);
                 const json = JSON.parse(body);
                 if (!json.success) 
                     apiFail(json);
