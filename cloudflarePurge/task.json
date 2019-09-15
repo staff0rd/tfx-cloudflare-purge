@@ -1,5 +1,5 @@
 {
-    "id": "7d0e24ce-9b3a-4860-918f-a64e6cb366c7",
+    "id": "#{tfx-cloudflare-purge-id#}",
     "name": "tfx-cloudflare-purge",
     "friendlyName": "Purge Cache for Cloudflare",
     "description": "Purge files from a Cloudflare cache",

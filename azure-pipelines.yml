@@ -11,6 +11,8 @@ variables:
   value: $(Build.BuildId)
 - name: version
   value: $(Build.BuildNumber)
+- name: tfx-cloudflare-purge-id
+  value: $(tfx-cloudflare-purge-dev-id)
 
 name: $(major).$(minor)$(Rev:.r)
 
