@@ -9,6 +9,8 @@ async function run() {
         const files: string[] = task.getDelimitedInput('files', '\n');
 
         console.log("I am running!");
+        console.log("I am warning!");
+        console.error("I am erroring!");
 
         const headers = {
             "X-Auth-Email": userName,
