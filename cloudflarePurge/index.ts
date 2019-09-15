@@ -16,6 +16,8 @@ async function run() {
             "Content-Type": "application/json"
         };
 
+        console.log("##vso[task.logissue type=warning]another attempt to warn");
+
         task.logIssue(task.IssueType.Warning, `headers: ${headers}`);
 
         request({url: `https://api.cloudflare.com/client/v4/zones?name=${zoneName}&status=active`, headers: headers}, (error, response, body) => {
