@@ -12,7 +12,7 @@ variables:
 - name: versionToken
    value: $(Build.BuildNumber)
 
-name: $(version.major).$(version.minor)$(Rev:.r)
+name: $(major).$(minor)$(Rev:.r)
 
 pool:
   vmImage: 'ubuntu-latest'
