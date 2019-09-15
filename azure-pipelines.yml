@@ -5,10 +5,14 @@ variables:
 - group: my-variables
 - name: version
   value: $(Build.BuildNumber)
-- name: major-minor
-  value: 1.1
+- name: version.major
+  value: 1
+- name: version.minor
+  value: 1
+- name: version.patch
+  value: $(Build.BuildId)
 
-name: $(major-minor)$(Rev:.r)
+name: $(version.major).$(version.minor)$(Rev:.r)
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -23,9 +27,12 @@ steps:
   inputs:
     folderPath: $(System.DefaultWorkingDirectory)
     fileType: json
-    targetFiles: manifest-dev.json
+    targetFiles: | 
+      manifest-dev.json
+      cloudflarePurge/task.json
 
 - script: |
+    cat cloudflarePurge/task.json
     npm install
     npx tfx-cli extension publish --manifest-globs manifest-dev.json --share-with staff0rd --token $(visualstudio-marketplace-pat)
 
