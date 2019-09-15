@@ -9,8 +9,8 @@ variables:
   value: 1
 - name: version.Patch
   value: $(Build.BuildId)
-- name: version
-  value: $(Build.BuildNumber)
+# - name: version
+#   value: $(Build.BuildNumber)
 
 name: $(version.major).$(version.minor)$(Rev:.r)
 
