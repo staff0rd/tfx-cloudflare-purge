@@ -1,16 +1,17 @@
 # Purge Cache for Cloudflare
 
-Azure DevOps build/release task for purging everything from your Cloudflare cache.  
+Azure DevOps build/release task for purging from your Cloudflare cache.  
 
-To automate this *Purge Everything* task, you'll need:
+To configure you'll need:
 
 * Your cloudflare user name (this is an email address)
 * Cloudflare Global API Key
   * Cloudflare > My Profile > Global API Key > View
 * Zone you want to purge (one of your domains)
   * Cloudflare > Home
-
-This task is the same as logging into Cloudflare and using the Caching > Purge Cache > Purge Everything function.
+* A list of urls to purge:
+  * One per line, in the format http://some/path.html
+  * Or empty, to purge everything
 
 ## Contribute
 
