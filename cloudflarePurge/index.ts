@@ -6,6 +6,7 @@ async function run() {
         const zoneName: string = task.getInput('zonename', true);
         const userName: string = task.getInput('username', true);
         const apiKey: string = task.getInput('apikey', true);
+        const files: string[] = task.getDelimitedInput('files', '\n');
 
         const headers = {
             "X-Auth-Email": userName,
@@ -23,7 +24,7 @@ async function run() {
                 else {
                     const json = JSON.parse(body);
                     const zoneId = json.result[0].id;
-                    clearCache(zoneId, headers);
+                    clearCache(zoneId, headers, getPayload(files));
                 }
             }
         });
@@ -32,6 +33,19 @@ async function run() {
         fail(err.message);
     }
 }
+
+function getPayload(files: string[]) {
+    var paths = files.filter(f => !!f);
+    if (paths) {
+        console.log('Will purge the following files:');
+        paths.forEach(p => console.log);
+        return { files: paths };
+    } else{   
+        console.log("Will purge everything!");
+        return { purge_everything: true };
+    }
+}
+
 
 function apiFail(json: any) {
     json.errors.forEach((error: any) => console.log(error.message));
@@ -42,8 +56,8 @@ function fail(message: string) {
     task.setResult(task.TaskResult.Failed, message)
 }
 
-function clearCache(zoneId: string, headers: any) {
-    request({method: 'POST', url: `https://api.cloudflare.com/client/v4/zones/${zoneId}/purge_cache`, headers: headers, body: JSON.stringify({ purge_everything: true}) }, (error, _, body) => {
+function clearCache(zoneId: string, headers: any, payload: object) {
+    request({method: 'POST', url: `https://api.cloudflare.com/client/v4/zones/${zoneId}/purge_cache`, headers: headers, body: JSON.stringify(payload) }, (error, _, body) => {
         if (error)
             task.setResult(task.TaskResult.Failed, error);
         else {
