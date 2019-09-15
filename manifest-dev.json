@@ -30,6 +30,10 @@
             "path": "node_modules/azure-pipelines-task-lib",
             "addressable": true,
             "packagePath": "lib"
+        }, {
+            "path": "node_modules/request",
+            "addressable": true,
+            "packagePath": "lib"
         }
     ],
     "contributions": [
