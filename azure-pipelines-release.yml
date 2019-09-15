@@ -1,0 +1,41 @@
+trigger:
+- master
+
+variables:
+- group: my-variables
+- name: major
+  value: 1
+- name: minor
+  value: 1
+- name: patch
+  value: $(Build.BuildId)
+- name: version
+  value: $(Build.BuildNumber)
+- name: tfx-cloudflare-purge-id
+  value: $(tfx-cloudflare-purge-release-id)
+- name: tfx-cloudflare-purge-name
+  value: Purge Cache for Cloudflare
+
+name: $(major).$(minor)$(Rev:.r)
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '10.x'
+  displayName: 'Install Node.js'
+
+- task: qetza.replacetokens.replacetokens-task.replacetokens@3
+  displayName: 'Replace tokens'
+  inputs:
+    targetFiles: | 
+      manifest-release.json
+      cloudflarePurge/task.json
+
+- script: |
+    npm install
+    npx tfx-cli extension publish --manifest-globs manifest-release.json --token $(visualstudio-marketplace-pat)
+
+  displayName: 'npm install and publish to prod'
