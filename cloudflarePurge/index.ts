@@ -13,17 +13,11 @@ async function run() {
             "X-Auth-Key": apiKey,
             "Content-Type": "application/json"
         };
-        
-        console.log('headers:');
-        console.log(headers);
 
         request({url: `https://api.cloudflare.com/client/v4/zones?name=${zoneName}&status=active`, headers: headers}, (error, response, body) => {
             if (error)
                 task.setResult(task.TaskResult.Failed, error);
             else {
-                task.logIssue(task.IssueType.Warning, "Inside: I am a warning!");
-                console.log("##vso[task.logissue type=warning]Inside: another attempt to warn");
-                task.logIssue(task.IssueType.Warning, `inside: headers: ${headers}`);
                 const json = JSON.parse(body);
                 if (!json.success) 
                     apiFail(json);
@@ -42,7 +36,7 @@ async function run() {
 
 function getPayload(files: string[]) {
     var paths = files.filter(f => !!f);
-    if (paths) {
+    if (paths.length) {
         console.log('Will purge the following files:');
         paths.forEach(p => console.log);
         return { files: paths };
