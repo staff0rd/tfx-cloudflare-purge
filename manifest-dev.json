@@ -2,7 +2,7 @@
     "manifestVersion": 1,
     "id": "tfx-cloudflare-purge-dev",
     "name": "Purge Cache for Cloudflare (Development)",
-    "version": "1.0.6",
+    "version": "#{versionToken}#",
     "publisher": "staff0rd",
     "public": false,
     "tags": "cdn, purge, cloudflare",

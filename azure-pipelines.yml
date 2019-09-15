@@ -3,14 +3,14 @@ trigger:
 
 variables:
 - group: my-variables
-- name: version.Major
+- name: majorToken
   value: 1
-- name: version.Minor
+- name: minorToken
   value: 1
-- name: version.Patch
+- name: patchToken
   value: $(Build.BuildId)
-# - name: version
-#   value: $(Build.BuildNumber)
+- name: versionToken
+   value: $(Build.BuildNumber)
 
 name: $(version.major).$(version.minor)$(Rev:.r)
 
@@ -23,10 +23,9 @@ steps:
     versionSpec: '10.x'
   displayName: 'Install Node.js'
 
-- task: FileTransform@1
+- task: qetza.replacetokens.replacetokens-task.replacetokens@3
+  displayName: 'Replace tokens'
   inputs:
-    folderPath: $(System.DefaultWorkingDirectory)
-    fileType: json
     targetFiles: | 
       manifest-dev.json
       cloudflarePurge/task.json
