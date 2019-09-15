@@ -26,14 +26,6 @@
     "files": [
         {
             "path": "cloudflarePurge"
-        }, {
-            "path": "node_modules/azure-pipelines-task-lib",
-            "addressable": true,
-            "packagePath": "azure-pipelines-task-lib"
-        }, {
-            "path": "node_modules/request",
-            "addressable": true,
-            "packagePath": "request"
         }
     ],
     "contributions": [

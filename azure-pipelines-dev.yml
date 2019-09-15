@@ -36,6 +36,8 @@ steps:
 
 - script: |
     npm install
+  workingDirectory: cloudflarePurge
+- script: |
     npx tfx-cli extension publish --manifest-globs manifest-dev.json --share-with staff0rd --token $(visualstudio-marketplace-pat)
 
   displayName: 'npm install and publish to dev'
