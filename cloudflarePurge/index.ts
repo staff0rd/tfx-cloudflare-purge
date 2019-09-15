@@ -7,7 +7,6 @@ async function run() {
         const userName: string = task.getInput('username', true);
         const apiKey: string = task.getInput('apikey', true);
         const files: string[] = task.getDelimitedInput('files', '\n');
-
         
         const headers = {
             "X-Auth-Email": userName,
@@ -15,9 +14,8 @@ async function run() {
             "Content-Type": "application/json"
         };
         
-        task.logIssue(task.IssueType.Warning, "I am a warning!");
-        console.log("##vso[task.logissue type=warning]another attempt to warn");
-        task.logIssue(task.IssueType.Warning, `headers: ${headers}`);
+        console.log('headers:');
+        console.log(headers);
 
         request({url: `https://api.cloudflare.com/client/v4/zones?name=${zoneName}&status=active`, headers: headers}, (error, response, body) => {
             if (error)
@@ -43,7 +41,6 @@ async function run() {
 }
 
 function getPayload(files: string[]) {
-    return { purge_everything: true };
     var paths = files.filter(f => !!f);
     if (paths) {
         console.log('Will purge the following files:');
@@ -55,10 +52,8 @@ function getPayload(files: string[]) {
     }
 }
 
-
 function apiFail(json: any) {
     json.errors.forEach((error: any) => console.log(error.message));
-    console.log('and this');
     fail(json.errors[0].message);
 }
 
