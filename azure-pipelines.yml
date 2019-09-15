@@ -10,7 +10,7 @@ variables:
 - name: patchToken
   value: $(Build.BuildId)
 - name: versionToken
-   value: $(Build.BuildNumber)
+  value: $(Build.BuildNumber)
 
 name: $(major).$(minor)$(Rev:.r)
 
