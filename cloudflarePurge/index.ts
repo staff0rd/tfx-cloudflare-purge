@@ -38,7 +38,7 @@ function getPayload(files: string[]) {
     var paths = files.filter(f => !!f);
     if (paths.length) {
         console.log('Will purge the following files:');
-        paths.forEach(p => console.log);
+        paths.forEach(console.log);
         return { files: paths };
     } else{   
         console.log("Will purge everything!");
