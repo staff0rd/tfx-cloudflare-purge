@@ -56,6 +56,7 @@ function getPayload(files: string[]) {
 
 function apiFail(json: any) {
     json.errors.forEach((error: any) => console.log(error.message));
+    console.log('and this');
     fail(json.errors[0].message);
 }
 
