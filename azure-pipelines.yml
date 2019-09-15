@@ -18,7 +18,7 @@ variables:
 
 name: $(major).$(minor)$(Rev:.r)
 
-pool:s
+pool:
   vmImage: 'ubuntu-latest'
 
 steps:
