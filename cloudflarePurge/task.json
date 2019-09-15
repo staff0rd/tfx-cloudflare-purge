@@ -42,7 +42,7 @@
             "type":"multiLine",
             "label": "Files to purge",
             "required": false,
-            "helpMarkDown": "Leave empty or use '*' to purge all"
+            "helpMarkDown": "Files to purge, or leave empty to purge everything"
         }
     ],
     "execution": {
