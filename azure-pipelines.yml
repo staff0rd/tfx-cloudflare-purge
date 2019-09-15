@@ -3,16 +3,16 @@ trigger:
 
 variables:
 - group: my-variables
-- name: majorToken
+- name: major
   value: 1
-- name: minorToken
+- name: minor
   value: 1
-- name: patchToken
+- name: patch
   value: $(Build.BuildId)
-- name: versionToken
+- name: version
   value: $(Build.BuildNumber)
 
-name: $(majorToken).$(minorToken)$(Rev:.r)
+name: $(major).$(minor)$(Rev:.r)
 
 pool:
   vmImage: 'ubuntu-latest'
