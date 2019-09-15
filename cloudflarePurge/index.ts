@@ -8,6 +8,8 @@ async function run() {
         const apiKey: string = task.getInput('apikey', true);
         const files: string[] = task.getDelimitedInput('files', '\n');
 
+        console.log("I am running!");
+
         const headers = {
             "X-Auth-Email": userName,
             "X-Auth-Key": apiKey,
