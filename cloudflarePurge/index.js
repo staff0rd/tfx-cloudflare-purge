@@ -1,9 +1,10 @@
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -39,28 +40,35 @@ var task = require("azure-pipelines-task-lib/task");
 var request = require("request");
 function run() {
     return __awaiter(this, void 0, void 0, function () {
-        var zoneName, userName, apiKey, headers_1;
+        var zoneName, userName, apiKey, files_1, headers_1;
         return __generator(this, function (_a) {
             try {
                 zoneName = task.getInput('zonename', true);
                 userName = task.getInput('username', true);
                 apiKey = task.getInput('apikey', true);
+                files_1 = task.getDelimitedInput('files', '\n');
                 headers_1 = {
                     "X-Auth-Email": userName,
                     "X-Auth-Key": apiKey,
                     "Content-Type": "application/json"
                 };
+                task.logIssue(task.IssueType.Warning, "I am a warning!");
+                console.log("##vso[task.logissue type=warning]another attempt to warn");
+                task.logIssue(task.IssueType.Warning, "headers: " + headers_1);
                 request({ url: "https://api.cloudflare.com/client/v4/zones?name=" + zoneName + "&status=active", headers: headers_1 }, function (error, response, body) {
                     if (error)
                         task.setResult(task.TaskResult.Failed, error);
                     else {
+                        task.logIssue(task.IssueType.Warning, "Inside: I am a warning!");
+                        console.log("##vso[task.logissue type=warning]Inside: another attempt to warn");
+                        task.logIssue(task.IssueType.Warning, "inside: headers: " + headers_1);
                         var json = JSON.parse(body);
                         if (!json.success)
                             apiFail(json);
                         else {
                             var json_1 = JSON.parse(body);
                             var zoneId = json_1.result[0].id;
-                            clearCache(zoneId, headers_1);
+                            clearCache(zoneId, headers_1, getPayload(files_1));
                         }
                     }
                 });
@@ -72,15 +80,29 @@ function run() {
         });
     });
 }
+function getPayload(files) {
+    return { purge_everything: true };
+    var paths = files.filter(function (f) { return !!f; });
+    if (paths) {
+        console.log('Will purge the following files:');
+        paths.forEach(function (p) { return console.log; });
+        return { files: paths };
+    }
+    else {
+        console.log("Will purge everything!");
+        return { purge_everything: true };
+    }
+}
 function apiFail(json) {
     json.errors.forEach(function (error) { return console.log(error.message); });
+    console.log('and this');
     fail(json.errors[0].message);
 }
 function fail(message) {
     task.setResult(task.TaskResult.Failed, message);
 }
-function clearCache(zoneId, headers) {
-    request({ method: 'POST', url: "https://api.cloudflare.com/client/v4/zones/" + zoneId + "/purge_cache", headers: headers, body: JSON.stringify({ purge_everything: true }) }, function (error, _, body) {
+function clearCache(zoneId, headers, payload) {
+    request({ method: 'POST', url: "https://api.cloudflare.com/client/v4/zones/" + zoneId + "/purge_cache", headers: headers, body: JSON.stringify(payload) }, function (error, _, body) {
         if (error)
             task.setResult(task.TaskResult.Failed, error);
         else {

@@ -36,8 +36,9 @@ steps:
 
 - script: |
     npm install
+    npx typescript
   workingDirectory: cloudflarePurge
-  displayName: npm install
+  displayName: npm install & compile
 - script: |
     npx tfx-cli extension publish --manifest-globs manifest-dev.json --share-with staff0rd --token $(visualstudio-marketplace-pat)
   displayName: publish to dev
