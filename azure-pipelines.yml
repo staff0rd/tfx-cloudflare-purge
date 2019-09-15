@@ -13,10 +13,12 @@ variables:
   value: $(Build.BuildNumber)
 - name: tfx-cloudflare-purge-id
   value: $(tfx-cloudflare-purge-dev-id)
+- name: tfx-cloudflare-purge-name
+  value: Purge Cache for Cloudflare (Development)
 
 name: $(major).$(minor)$(Rev:.r)
 
-pool:
+pool:s
   vmImage: 'ubuntu-latest'
 
 steps:

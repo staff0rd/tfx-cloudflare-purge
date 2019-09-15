@@ -1,7 +1,7 @@
 {
     "id": "#{tfx-cloudflare-purge-id}#",
     "name": "tfx-cloudflare-purge",
-    "friendlyName": "Purge Cache for Cloudflare",
+    "friendlyName": "#{tfx-cloudflare-purge-name}#",
     "description": "Purge files from a Cloudflare cache",
     "helpMarkDown": "",
     "category": "Utility",
