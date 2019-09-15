@@ -29,11 +29,11 @@
         }, {
             "path": "node_modules/azure-pipelines-task-lib",
             "addressable": true,
-            "packagePath": "lib/pipelines"
+            "packagePath": "azure-pipelines-task-lib"
         }, {
             "path": "node_modules/request",
             "addressable": true,
-            "packagePath": "lib/request"
+            "packagePath": "request"
         }
     ],
     "contributions": [
