@@ -37,6 +37,7 @@ async function run() {
 }
 
 function getPayload(files: string[]) {
+    return { purge_everything: true };
     var paths = files.filter(f => !!f);
     if (paths) {
         console.log('Will purge the following files:');
