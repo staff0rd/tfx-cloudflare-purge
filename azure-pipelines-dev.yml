@@ -6,7 +6,7 @@ variables:
 - name: major
   value: 1
 - name: minor
-  value: 1
+  value: 2
 - name: patch
   value: $(Build.BuildId)
 - name: version
