@@ -23,8 +23,14 @@ async function run() {
                     apiFail(json);
                 else {
                     const json = JSON.parse(body);
-                    const zoneId = json.result[0].id;
-                    clearCache(zoneId, headers, getPayload(files));
+                    if (json.result.length === 0) {
+                        fail(`Could not find zone ${zoneName}`);
+                    } else if (json.result.length > 1) {
+                        fail(`Found more than one match for zone ${zoneName}`);
+                    } else {
+                        const zoneId = json.result[0].id;
+                        clearCache(zoneId, headers, getPayload(files));
+                    }
                 }
             }
         });
